@@ -1,0 +1,226 @@
+:root {
+    --ferremas-naranjo-color: #fe6a00;
+    --ferremas-azul-color: #1a2530;
+    --ferremas-gris-claro: #E3E3E3; 
+  }
+
+body#login{
+    background-color: rgb(39, 39, 39);
+    background-image: url("../img/background2.png");
+    background-repeat: repeat;
+}
+body#registro{
+    background-color: rgb(39, 39, 39);
+    background-image: url("../img/background2.png");
+    background-repeat: repeat;
+}
+
+header{
+	.dropdown-menu{
+		--bs-dropdown-bg:white;
+	}
+	.dropdown-multicol{
+		width: 25em;
+	}
+	.dropdown-header{
+		color: var(--ferremas-naranjo-color);
+	}
+}
+
+
+/* Barrita Naranja Bajo el NAV */
+section.subheader{
+    background: var(--ferremas-naranjo-color);
+    .fondo_naranja{
+        padding: 20px 0;
+        background: url('../img/fondo.png') var(--ferremas-naranjo-color);
+        background-blend-mode: multiply;
+        .top_buttons{
+            display: flex;
+            a{
+                text-decoration: none;
+                border-radius: 12px;
+                padding: 8px 12px;
+                font-size: 14px;
+                margin-right: 12px;
+                transition: .3s linear all;
+                &:hover{
+                    transform: scale(.96);
+                }
+                &.btn_categorias{
+                    color: white;
+                    border: 1px solid white;
+                    background: var(--ferremas-naranjo-color);
+
+                }
+                &.btn_todos{
+                    background: var(--ferremas-azul-color);
+                    color: white;
+                    border: 1px solid var(--ferremas-naranjo-color);
+                }
+            }
+        }
+    }
+}
+
+/* Offset con Filtro de Categorias */
+.offcanvas-header{
+	background: var(--ferremas-naranjo-color);
+	h5{
+		color: white;
+	}
+}
+
+.offcanvas-body{
+	ul{
+		list-style: none;
+    	margin: 0;
+    	padding: 0 0 0 20px;
+		li{
+			a{
+				color: #3a3a3a;
+				text-decoration: none;
+				transition: .2s linear all;
+				margin: 0;
+				display: block;
+				&:hover{
+					padding-left: 4px;
+					color: var(--ferremas-naranjo-color);
+				}
+			}
+		}
+	}
+}
+
+/* Footer */ 
+footer{
+	background: var(--ferremas-azul-color);
+	margin-top: 40px;
+	padding-top: 40px;
+	h3{
+		color: var(--ferremas-naranjo-color);
+		font-size: 17px;
+    	font-weight: bold;
+	}
+	ul.menu_footer{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		li{
+			a{
+				color: white;
+				text-decoration: none;
+				font-size: 15px;
+				transition: .2s linear all;
+				margin: 6px 0;
+				font-weight: 300;
+				&:hover{
+					padding-left: 4px;
+				}
+			}
+		}
+	}
+	.credito{
+		color: white;
+		font-size: 15px;
+		margin-top: 20px;
+		font-weight: 300;
+	}
+	ul.footer_contactos{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		li{
+			color: white;
+			text-decoration: none;
+			font-size: 15px;
+			font-weight: 300;
+			margin:0;
+			padding: 0;
+			a{
+				color: white;
+				text-decoration: none;
+				font-size: 15px;
+				font-weight: 300;
+			}
+			background-repeat: no-repeat;
+			background-position: left top;
+			padding: 0 0 0 40px;
+			height: 46px;
+		}
+        .footer-icono{
+            font-size: 1.5rem;
+            color: var(--ferremas-naranjo-color);
+        }
+	}
+	.mapa{
+		iframe{
+			width: 100%;
+			height: 200px;
+			border-radius: 20px;
+		}
+	}
+}
+
+
+
+/* Brand Nav */
+#logo-row{
+    padding-top: 20%;
+    padding-bottom: 2%;
+}
+
+#logo-img{
+    max-width: 50%;
+    background-color: rgb(17, 17, 17) !important;
+    border-radius: 25px;
+    padding: .5%;
+}
+
+.nav-icon{
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(68deg) brightness(104%) contrast(101%);
+}
+
+.nav-pills .nav-link {
+    color: var(--ferremas-azul-color); 
+}
+
+.navbar-nav .nav-link.active,.navbar-nav .nav-link.show {
+    color: var(--ferremas-naranjo-color);
+}
+
+.nav-link:focus,.nav-link:hover {
+    color: var(--ferremas-naranjo-color);
+}
+
+a {
+    color: var(--ferremas-naranjo-color);
+}
+
+.btn-link {
+    color:var(--ferremas-azul-color);
+}
+
+.btn-check:checked+.btn,.btn.active,.btn.show,.btn:first-child:active,:not(.btn-check)+.btn:active,.btn-link:hover {
+    color: var(--ferremas-naranjo-color);
+}
+
+.color-ferremas{
+    background-color: var(--ferremas-naranjo-color);
+}
+
+.font-min{
+    font-size: small !important;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.precio {
+    font-weight: bold;
+    font-size: x-large;
+}

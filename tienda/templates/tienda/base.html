@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FERREMÁS {% block titulo %}{% endblock %}</title>
+
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'tienda/css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'tienda/css/ferremas.css' %}">
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'tienda/img/ferremas_logo.svg' %}" alt="" width="100%" height="auto">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contactanos' %}">Contáctanos</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Intranet
+                            </a>
+                            <ul class="dropdown-menu dropdown-multicol">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <li><span class="dropdown-header">Operaciones</span></li>
+                                            <li><a class="dropdown-item" href="{% url 'pedidos' %}">Pedidos</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'pagos' %}">Pagos</a></li>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <li><span class="dropdown-header">Productos</span></li>
+                                            <li><a class="dropdown-item" href="#">Ver Productos</a></li>
+                                            <li><a class="dropdown-item" href="#">Agregar Producto</a></li>
+                                        </div>
+                                    </div>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <li><span class="dropdown-header">Categorías</span></li>
+                                            <li><a class="dropdown-item" href="#">Ver Categorías</a></li>
+                                            <li><a class="dropdown-item" href="#">Agregar Categoría</a></li>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <li><span class="dropdown-header">Marcas</span></li>
+                                            <li><a class="dropdown-item" href="#">Ver Marcas</a></li>
+                                            <li><a class="dropdown-item" href="#">Agregar Marca</a></li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#ModalCarrito" class="btn btn-primary position-relative" role="button">
+                                <i class="bi-cart-fill"></i>
+                                <span id="carrito-contador" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger visually-hidden">
+                                    0
+                                </span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi-person-circle"></i> Mi Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Cerrar Sesión</a>
+                        </li>
+                    </ul>    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="subheader"{% block subheader %}{% endblock %}>
+        <div class="fondo_naranja">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="top_buttons">
+                            <a class="btn_categorias" data-bs-toggle="offcanvas" href="#menu_categorias" role="button" aria-controls="offcanvasExample">Categorías de productos</a>
+                            <a href="{% url 'tienda' %}" class="btn_todos">Ver todos los productos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- BREADCUMBS -->
+    {% block breadcumbs %}
+    {% endblock %}
+    <!-- CONTENIDO TIENDA -->
+    <div class="container">
+        {% block contenido %}
+
+        {% endblock %}
+    </div>
+
+
+    <!-- OFFSET CANVAS CATEGORIAS -->
+    <section id="categorias">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="menu_categorias" aria-modal="true" role="dialog">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="menu_categorias_titulo">Categorías</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>    
+            <div class="offcanvas-body">
+                <ul>
+                    <li><a href="https://www.ferremas.com.py/categoria/chapas">CHAPAS</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/angulos">ANGULOS</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/varillas">VARILLAS</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/tanque-para-agua">TANQUE PARA AGUA</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/fijaciones">FIJACIONES </a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/adhesivo-2">ADHESIVO</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/aditivos">ADITIVOS</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/materiales-de-construccion">MATERIALES DE CONSTRUCCION</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/malla-y-alambre-en-gral">MALLA Y ALAMBRE EN GRAL</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/impermeabilizantes-2">IMPERMEABILIZANTES</a></li>
+                    <li><a href="https://www.ferremas.com.py/categoria/clavo">CLAVO</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARRITO DE COMPRAS -->
+    <section id="carrito">
+        <div class="modal fade modal-xl" id="ModalCarrito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <!--INICIO MODAL CARRITO-->
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-8">
+                                            <div class="p-5">
+                                                <!-- TITULO CARRITO -->
+                                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                                    <h1 class="fw-bold mb-0 text-black">Carrito de Compras</h1>
+                                                    <h6 class="mb-0 text-muted" id="cantidad-articulos">0 Artículos</h6>
+                                                </div>
+    
+                                                <!-- CARRITO DE PRODUCTOS -->
+                                                <div class="row mb-4 d-flex justify-content-between align-items-center" id="carrito-compras">
+                                                </div>
+    
+                                                <hr class="my-4"> 
+    
+                                                <div class="pt-5">
+                                                    <button type="button" class="btn btn-link" data-bs-dismiss="modal"><i class="bi-arrow-left"></i> Volver a la tienda</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 bg-grey">
+                                            <div class="p-4">
+                                                <h4 class="fw-bold mb-5 mt-2 pt-1">Resumen de Compra</h4>
+                                                <hr class="my-4">
+                                                
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <h5 class="text-uppercase">Sub Total</h5>
+                                                    <h5 id="carrito-subtotal">$ 0</h5>
+                                                </div>
+    
+                                                <hr class="my-4">
+                                                <h5 class="text-uppercase mb-2">Calculadora Envío <i class="bi bi-box-seam-fill"></i></h5>
+                                                <img class="fit-image mb-2" src="{% static 'tienda/img/carrito/chilexpress.png' %}" width="160px" height="35px">
+                                               
+                                                <select class="form-select mb-2" id="countySelectDestinoRegion">
+                                                    <option selected value="0">Seleccione Región</option>
+                                                </select>
+                                                <select class="form-select mb-2" id="countySelectDestinoComuna" disabled>
+                                                    <option selected value="0">Seleccione Comuna</option>
+                                                </select>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <input type="text" class="form-control" id="inputPesoCarrito">
+                                                        <span class="input-group-text" id="inputGroup-sizing-sm">Kg</span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center ">
+                                                    <button  type="button" class="btn btn-warning btn-sm" id="btnCalcularEnvio" disabled>Calcular envío</button>
+                                                </div>
+                                                <div class="d-flex justify-content-between mb-2 mt-4">
+                                                    <h5 class="text-uppercase mb-3">Envío</h5>
+                                                    <h5 id="envio-subtotal">$ 0</h5>
+                                                </div>
+    
+                                                <hr class="my-4">
+                                                
+                                                <div class="d-flex justify-content-between mb-5">
+                                                    <h5 class="text-uppercase">Total a Pagar</h5>
+                                                    <h5 id="carrito-total">$ 0</h5>
+                                                </div>
+                                                
+                                                <div class="row justify-content-center mb-4 radio-group">
+                                                    <div class="col-sm-4 col-5">
+                                                        <div class='radio selected mx-auto' data-value="dk"> <img class="fit-image" src="{% static 'tienda/img/carrito/mastercard.jpeg' %}" width="70px" height="35px"> </div>
+                                                    </div>
+                                                    <div class="col-sm-4 col-5">
+                                                        <div class='radio mx-auto' data-value="visa"> <img class="fit-image" src="{% static 'tienda/img/carrito/visa.jpeg' %}" width="70px" height="35px"> </div>
+                                                    </div>
+                                                    <div class="col-sm-4 col-5">
+                                                        <div class='radio mx-auto' data-value="master"> <img class="fit-image" src="{% static 'tienda/img/carrito/paypal.jpeg' %}" width="70px" height="35px"> </div>
+                                                    </div>
+                                                <br>
+                                                </div>
+                                                <div class="d-grid gap-2">
+                                                    <button  type="button" class="btn btn-dark btn-lg">Pagar  <i class="bi bi-credit-card"></i></button>
+                                                </div>
+                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <footer>
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-12 col-lg-4 footer1">
+                    <h3>Ferremás Comercial S.A.</h3>
+                    <ul class="menu_footer">
+                        <li><a href="{% url 'contactanos' %}">Contáctanos</a></li>
+                    </ul>
+                    <div class="credito">
+                        <p>© 2024 Duoc UC - Grupo 15<br>Todos los derechos reservados</p>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 footer2">
+                    <ul class="footer_contactos">
+                        <li class="direccion"><span class="footer-icono"><i class="bi bi-geo-alt"></i></span> &nbsp;&nbsp;&nbsp;&nbsp; Sta. Elena de Huechuraba 1660, Huechuraba, RM.</li>
+                        <li class="telefono"><a href="tel:+56982182455"><span class="footer-icono"><i class="bi bi-telephone"></i> </span> &nbsp;&nbsp;&nbsp;&nbsp;+56 9 821 82 455</a></li>
+                        <li class="ventas"><a href="mailto:ventas@ferremas.cl"><span class="footer-icono"><i class="bi bi-envelope"></i> </span> &nbsp;&nbsp;&nbsp;&nbsp;ventas@ferremas.cl</a></li>
+                        <li class="horario"><span class="footer-icono"><i class="bi bi-clock"></i> </span> &nbsp;&nbsp;&nbsp;&nbsp;Lunes a viernes 10:00 a 18:30 h<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sábados 10:00 a 14:00 h</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-4 footer3">
+                    <div class="mapa">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13329.168300819707!2d-70.6781852!3d-33.36344!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c7025c925e0f%3A0x7f2f6a657c08d14a!2sDuoc%20UC%3A%20Sede%20Plaza%20Norte!5e0!3m2!1ses-419!2scl!4v1719997435403!5m2!1ses-419!2scl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'tienda/js/ferremas.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+
+</body>
+
+</html>

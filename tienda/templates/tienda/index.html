@@ -1,0 +1,88 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Home
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'tienda/css/index.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<!-- Carousel -->
+<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'tienda/img/carousel/detodo.jpg' %}" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'tienda/img/carousel/electricas.jpg' %}" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'tienda/img/carousel/herramientas.jpg' %}" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<section id="informacion">
+	<div class="container info">
+		<div class="row">
+			<div class="col col-lg-4 cajadeinfo1">
+				<div class="row align-items-center">
+					<div class="col col-4 text-center">
+						<img src="https://www.ferremas.com.py/assets/img/pos.svg?1684938985" class="img-fluid d-block mx-auto">
+					</div>
+					<div class="col col-8">
+						<h3>Escoge tu forma de pago</h3>
+						<p>Conocé nuestras formas de pago</p>
+					</div>
+				</div>
+			</div>
+			<div class="col col-lg-4 cajadeinfo2">
+				<div class="row align-items-center">
+					<div class="col col-4 text-center">
+						<img src="https://www.ferremas.com.py/assets/img/tienda.svg?1684938985" class="img-fluid d-block mx-auto">
+					</div>
+					<div class="col col-8">
+						<h3>Retiro en tienda</h3>
+						<p>Hace tus compras y retíralas en tienda</p>
+					</div>
+				</div>
+			</div>
+			<div class="col col-lg-4 cajadeinfo3">
+				<div class="row align-items-center">
+					<div class="col col-4 text-center">
+						<img src="https://www.ferremas.com.py/assets/img/envios.svg?1684938985" class="img-fluid d-block mx-auto">
+					</div>
+					<div class="col col-8">
+						<h3>Envíos a todo el País</h3>
+						<p>Hace tus compras y recibilas donde quieras a traves de CHILEXPRESS</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

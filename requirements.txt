@@ -1,0 +1,5 @@
+django 
+#Libreria utilizada para subir imagenes al modelo
+pillow
+#Libreria utilizada para modificar el Tema del Django Admin (Bootstrap)
+django-admin-interface

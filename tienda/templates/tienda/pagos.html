@@ -1,0 +1,147 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Pagos
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Listado de Pagos</li>
+</ol>
+{% endblock %}
+  
+{% block contenido %}   
+<h1 style="text-align: center;">Listado de Pagos</h1>
+
+<!-- Buscador -->
+<div class="card text-center">
+    <h5 class="card-header">Parámetros de Búsqueda</h5>
+    <div class="card-body">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-auto">
+                    <label for="InputIdPedido" class="col-form-label"># Id de Documento:</label>    
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="InputIdPedido">
+                </div>
+                <div class="col-auto">
+                    <label for="FechaCreacion" class="col-form-label">Fecha Contable:</label>    
+                </div>
+                <div class="col-auto">
+                    <input type="date" class="form-control" id="FechaCreacion" value="2024-04-12" min="2015-01-01" max="2024-04-13">
+                </div>
+                <div class="col-auto">
+                    <label for="Estado" class="col-form-label">Estado:</label>    
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Todas las Partidas</option>
+                        <option value="1">Partida Abierta</option>
+                        <option value="2">Partida Compensada</option>
+                        <option value="3">Partida Anulada</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-sm">Aplicar</button>
+        <button type="button" class="btn btn-link">Limpiar Búsqueda</button>
+    </div>
+</div>  
+
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table font-min">
+            <thead>
+                <tr>
+                    <th scope="col">N° Doc.</th>
+                    <th scope="col">Fecha Doc.</th>
+                    <th scope="col">Fecha Pago</th>
+                    <th scope="col">Días Atraso</th>
+                    <th scope="col">Sucursal</th>
+                    <th scope="col">N° Cliente</th>
+                    <th scope="col">Importe</th>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">130000</th>
+                    <td>31-03-2024</td>
+                    <td>12-04-2024</td>
+                    <td class="text-danger"><b>1</b></td>
+                    <td>Recoleta</td>
+                    <td>773510319</td>
+                    <td>500.000</td>
+                    <td>CLP</td>
+                    <td>#101 Factura Elec. C-Emelec</td>
+                    <td class="text-danger"><b>Partida Abierta</b></td>
+                    <td>
+                        <a type="button" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Aviso Cliente"><i class="bi-alarm-fill" ></i></a>
+                        <a type="button" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Compensar Partida"><i class="bi-coin"></i></a>
+                        <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Nota de Crédito" ><i class="bi-file-earmark-text-fill"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">130001</th>
+                    <td>25-03-2024</td>
+                    <td>06-04-2024</td>
+                    <td ><b>0</b></td>
+                    <td>Recoleta</td>
+                    <td>733540312</td>
+                    <td>657.000</td>
+                    <td>CLP</td>
+                    <td>#131 Factura Elec. C-ENTEL</td>
+                    <td class="text-success"><b>Partida Cerrada</b></td>
+                    <td>
+                        <a type="button" class="btn btn-warning btn-sm disabled" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Aviso Cliente"><i class="bi-alarm-fill" ></i></a>
+                        <a type="button" class="btn btn-success btn-sm disabled" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Compensar Partida"><i class="bi-coin"></i></a>
+                        <a type="button" class="btn btn-danger btn-sm disabled" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Nota de Crédito"><i class="bi-file-earmark-text-fill"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">130002</th>
+                    <td>10-04-2024</td>
+                    <td>22-04-2024</td>
+                    <td><b>--</b></td>
+                    <td>La Florida</td>
+                    <td>763510310</td>
+                    <td>351.000</td>
+                    <td>CLP</td>
+                    <td>#011 Factura Elec. C-SALMAX</td>
+                    <td class="text-danger"><b>Partida Abierta</b></td>
+                    <td>
+                        <a type="button" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Aviso Cliente"><i class="bi-alarm-fill" ></i></a>
+                        <a type="button" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Compensar Partida"><i class="bi-coin"></i></a>
+                        <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Nota de Crédito" ><i class="bi-file-earmark-text-fill"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'tienda/js/listadoPagos.js' %}"></script>
+{% endblock %}
+

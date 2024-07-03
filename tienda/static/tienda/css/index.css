@@ -1,0 +1,23 @@
+/* Informaciones de envios, pagos y sucursal */
+.info{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	background: var(--ferremas-gris-claro);
+	border-radius: 20px;
+	padding: 20px;
+	h3{
+		color: var(--ferremas-naranjo-color);
+		font-size: 22px;
+		font-weight: bold;
+	}
+	p{
+		padding: 0;
+		margin: 0;
+		color: black;
+	}
+	.cajadeinfo3{
+		img{
+			max-width: 107px
+		}
+	}
+}

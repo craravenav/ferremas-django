@@ -1,0 +1,385 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Pedidos
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Listado de pedidos</li>
+</ol>
+{% endblock %}
+  
+{% block contenido %}   
+<h1 style="text-align: center;">Listado de Pedidos</h1>
+
+<!-- Buscador -->
+<div class="card text-center">
+    <h5 class="card-header">Parámetros de Búsqueda</h5>
+    <div class="card-body">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-auto">
+                    <label for="InputIdPedido" class="col-form-label"># Id del Pedido:</label>    
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="InputIdPedido">
+                </div>
+                <div class="col-auto">
+                    <label for="FechaCreacion" class="col-form-label">Fecha de Creación:</label>    
+                </div>
+                <div class="col-auto">
+                    <input type="date" class="form-control" id="FechaCreacion" value="2024-04-12" min="2015-01-01" max="2024-04-13">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-sm">Aplicar</button>
+        <button type="button" class="btn btn-link">Limpiar Búsqueda</button>
+    </div>
+</div>  
+
+<br>
+
+<!-- Pills Pedidos -->
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#MisPedidos" aria-selected="true" role="tab">Mis Pedidos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#PedidosDisponibles" aria-selected="false" role="tab">Nuevos Pedidos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#PedidosTerminados" aria-selected="false" role="tab">Pedidos Terminados</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div id="myTabContent" class="tab-content">
+            <!-- MIS PEDIDOS -->
+            <div class="tab-pane fade active show" id="MisPedidos" role="tabpanel">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"># Pedido</th>
+                            <th scope="col">Fecha Documento</th>
+                            <th scope="col">Estado Pedido</th>
+                            <th scope="col">Región</th>
+                            <th scope="col">Sucursal</th>
+                            <th scope="col">Vendedor</th>
+                            <th scope="col"># Orden de Compra</th>
+                            <th scope="col">Estado Orden</th>
+                            <th scope="col">Cantidad Items</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">000-001</th>
+                            <td>10-04-2024</td>
+                            <td class="text-warning">En Proceso</td>
+                            <td>Región Metropolitana</td>
+                            <td>Recoleta</td>
+                            <td>Vendedor 1</td>
+                            <td>00-00-001</td>
+                            <td class="text-success">Recepcionada</td>
+                            <td>5</td>
+                            <td>
+                                <span data-bs-toggle="modal" data-bs-target="#VerOrden">
+                                    <a type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver"><i class="bi-search"></i></a>        
+                                </span>
+                                <a type="button" class="btn btn-primary btn-sm downloadBtn" id="ToastDescargaBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Descargar Orden"><i class="bi-download" ></i></a>
+                                <a type="button" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Cerrar Orden"><i class="bi-check-all"></i></a>
+                                <span data-bs-toggle="modal" data-bs-target="#RechazaOrden">
+                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Rechazar Orden" ><i class="bi-ban"></i></a>
+                                </span>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">000-002</th>
+                            <td>10-04-2024</td>
+                            <td class="text-warning">En Proceso</td>
+                            <td>Región Metropolitana</td>
+                            <td>La Florida</td>
+                            <td>Vendedor 3</td>
+                            <td>00-02-003</td>
+                            <td class="text-success">Recepcionada</td>
+                            <td>13</td>
+                            <td><a type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver"><i class="bi-search"></i></a>
+                                <a type="button" class="btn btn-primary btn-sm downloadBtn" id="ToastDescargaBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Descargar Orden"><i class="bi-download"></i></a>
+                                <a type="button" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Cerrar Orden"><i class="bi-check-all"></i></a>
+                                <span data-bs-toggle="modal" data-bs-target="#RechazaOrden">
+                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Rechazar Orden"><i class="bi-ban"></i></a>  
+                                </span>    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- NUEVOS PEDIDOS -->
+            <div class="tab-pane fade" id="PedidosDisponibles" role="tabpanel">
+                <p>Disponibles</p>
+            </div>
+            <!-- PEDIDOS TERMINADOS -->
+            <div class="tab-pane fade" id="PedidosTerminados" role="tabpanel">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"># Pedido</th>
+                            <th scope="col">Fecha Documento</th>
+                            <th scope="col">Estado Pedido</th>
+                            <th scope="col">Región</th>
+                            <th scope="col">Sucursal</th>
+                            <th scope="col">Vendedor</th>
+                            <th scope="col"># Orden de Compra</th>
+                            <th scope="col">Estado Orden</th>
+                            <th scope="col">Cantidad Items</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">000-003</th>
+                            <td>09-04-2024</td>
+                            <td class="text-success">Cerrada</td>
+                            <td>Región Metropolitana</td>
+                            <td>Las Condes</td>
+                            <td>Vendedor 5</td>
+                            <td>00-01-010</td>
+                            <td class="text-success">Recepcionada</td>
+                            <td>10</td>
+                            <td><a type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver"><i class="bi-search"></i></a>
+                                <a type="button" class="btn btn-primary btn-sm downloadBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Descargar Orden"><i class="bi-download"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">000-004</th>
+                            <td>09-04-2024</td>
+                            <td class="text-success">Cerrada</td>
+                            <td>Región Metropolitana</td>
+                            <td>La Florida</td>
+                            <td>Vendedor 3</td>
+                            <td>00-02-002</td>
+                            <td class="text-success">Recepcionada</td>
+                            <td>6</td>
+                            <td><a type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver"><i class="bi-search"></i></a>
+                                <a type="button" class="btn btn-primary btn-sm downloadBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Descargar Orden"><i class="bi-download"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">000-005</th>
+                            <td>08-04-2024</td>
+                            <td class="text-success">Cerrada</td>
+                            <td>Región Metropolitana</td>
+                            <td>La Florida</td>
+                            <td>Vendedor 3</td>
+                            <td>00-02-001</td>
+                            <td class="text-success">Recepcionada</td>
+                            <td>8</td>
+                            <td><a type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver"><i class="bi-search"></i></a>
+                                <a type="button" class="btn btn-primary btn-sm downloadBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Descargar Orden"><i class="bi-download"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Toasts / Notificaciones -->
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="ToastDescarga" class="toast" role="alert">
+                    <div class="toast-header text-bg-primary">
+                        <i class="bi-info-circle me-2"></i>
+                        <strong class="me-auto">Notificación</strong>
+                        <small>Hace 1 segundo</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Descargando Orden de Compra...
+                    </div>
+                </div>
+            </div>  
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="ToastConfirmaRechazo" class="toast" role="alert">
+                    <div class="toast-header text-bg-primary">
+                        <span class="text-success"><i class="bi-check-circle-fill me-2"></i></span>
+                        <strong class="me-auto">Notificación</strong>
+                        <small>Ahora</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Orden de Pedido Rechazada con exito!
+                    </div>
+                </div>
+            </div>  
+
+            <!-- Modal Confirmar Acción -->
+            <div class="modal fade" id="RechazaOrden" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Confirmar Acción</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                Esta seguro que desea rechazar la orden?, <b>en caso de confirmar ingrese el motivo.</b>
+                            </div>
+                            <div class="col-md-12">
+                                <textarea class="form-control" aria-label="With textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="BtnConfirmaRechazo" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="VerOrden" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header color-ferremas">
+                            <h5 class="modal-title fs-5"><b>Pedido # 000-001</b></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row p-3">
+                                        <div class="col-3">
+                                            <fieldset>
+                                                <b><label class="form-label" for="FechaDoc">Fecha Documento:</label></b>
+                                                <input class="form-control" id="FechaDoc" type="text" placeholder="10-04-2024" readonly="">
+                                            </fieldset>   
+                                        </div>
+                                        <div class="col-3">
+                                            <fieldset>
+                                                <b><label class="form-label" for="Sucursal">Sucursal:</label></b>
+                                                <input class="form-control" id="Sucursal" type="text" placeholder="Recoleta, Región Metropolitana" readonly="">
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-3">
+                                            <fieldset>
+                                                <b><label class="form-label" for="Vendedor">Vendedor:</label></b>
+                                                <input class="form-control" id="Vendedor" type="text" placeholder="Vendedor 1" readonly="">
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-3">
+                                            <fieldset>
+                                                <b><label class="form-label" for="Cliente">Cliente:</label></b>
+                                                <input class="form-control" id="Cliente" type="text" placeholder="Pepito López" readonly="">
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row p-3">
+                                        <div class="col-4">
+                                            <fieldset>
+                                                <b><label class="form-label" for="EstadoPedido">Estado Pedido:</label></b>
+                                                <input class="form-control text-warning" id="EstadoPedido" type="text" placeholder="En Proceso" readonly="">
+                                            </fieldset>   
+                                        </div>
+                                        <div class="col-4">
+                                            <fieldset>
+                                                <b><label class="form-label" for="EstadoOC">Estado Orden de Compra:</label></b>
+                                                <input class="form-control text-success" id="EstadoOC" type="text" placeholder="Recepcionada" readonly="">
+                                            </fieldset>   
+                                        </div>
+                                        <div class="col-4">
+                                            <fieldset>
+                                                <b><label class="form-label" for="NumeroOC">N° Orden de Compra:</label></b>
+                                                <input class="form-control text-success" id="NumeroOC" type="text" placeholder="00-00-001" readonly="">
+                                            </fieldset>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-3">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table">
+                                                <thead class="text-bg-primary">
+                                                    <tr>
+                                                        <th scope="col">Cod. Producto</th>
+                                                        <th scope="col">Descripción</th>
+                                                        <th scope="col">Valor Unitario</th>
+                                                        <th scope="col">Cantidad</th>
+                                                        <th scope="col">Valor Neto</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-group-divider">
+                                                    <tr>
+                                                        <th scope="row">TH023</th>
+                                                        <td>ATORNILLADOR 10MM C/BAT. DE LITIO 10.8V ENERGIZER</td>
+                                                        <td>50.000</td>
+                                                        <td>1</td>
+                                                        <td>50.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">TH145</th>
+                                                        <td>CAPACITOR PLAS 60MF</td>
+                                                        <td>12.000</td>
+                                                        <td>3</td>
+                                                        <td>36.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">TH240</th>
+                                                        <td>JGO. KIT DESTORNILLADORES 3PZ PROMOCION</td>
+                                                        <td>14.840</td>
+                                                        <td>1</td>
+                                                        <td>14.840</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Neto</td>
+                                            <td>$ 100.840</td>
+                                        </tr>
+                                        <tr><td>IVA</td>
+                                            <td>$ 19.160</td>
+                                        </tr>
+                                        <tr><td>Total</td>
+                                            <td>$ 120.000</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'tienda/js/listadoPedidos.js' %}"></script>
+{% endblock %}
