@@ -7,6 +7,7 @@
 {% load static %}
 
 {% block css %}
+<link rel="stylesheet" href="{% static 'tienda/css/tienda.css' %}">
 {% endblock %}
 
 {% block breadcumbs %}
@@ -20,30 +21,35 @@
 
 {% block contenido %}
 <!-- Productos -->
-<div class="row p-5">
-    <div class="card producto m-2" style="width: 18rem;">
-        <img src="./img/productos/atornillador-sm.jpg" class="card-img-top producto-imagen" alt="...">
-        <div class="card-body">
-            <h5 class="card-title producto-titulo">ATORNILLADOR 10MM C/BAT. DE LITIO 10.8V ENERGIZER</h5>
-            <div class="d-flex justify-content-center">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
+ {% load humanize %}
+<div class="row p-5 productos">
+    <h2>Todos los Productos</h2>
+{% for producto in productos %}
+    <div class="card producto">
+        <div class="d-flex flex-column h-100">
+            {% if producto.imagenes %}
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="{{ producto.imagenes.first.imagen.url }}" class="card-img-top producto-imagen" alt="...">
+            </div>
+            {% endif %}
+            <div class="card-body detalles flex-grow-1">
+                <h6>{{ producto.marca | capfirst }}</h6>
+                <h5 class="card-title producto-titulo">{{ producto.nombre | title }}</h5>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <div class="p-2 precio producto-precio" >
-                    $49.990
+                <div class="p-1 precio producto-precio">
+                    $ {{ producto.precio | intcomma }}
                 </div>
                 <div class="p-2">
-                    <button class="btn btn-primary btnAgregarProducto" id="btnAgregarProducto">Agregar <i class="bi bi-cart-plus"></i></button>
+                    <button class="btn btn-primary btn-sm btnAgregarProducto" id="btnAgregarProducto">Agregar <i class="bi bi-cart-plus"></i></button>
                 </div>
             </div>
-            
         </div>
     </div>
+{% endfor %}
 </div>
+
+
 {% endblock %}
 
 {% block js %}

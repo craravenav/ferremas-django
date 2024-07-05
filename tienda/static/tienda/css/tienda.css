@@ -1,0 +1,39 @@
+div .card .producto {
+    min-height: 100%;
+}
+.productos .producto {
+    width: 24%;
+    margin: 5px;
+    padding: 0;
+    animation: animacion_producto_desktop 0.5s;
+    --bs-card-spacer-x: 0px;
+}
+
+.productos .producto img {
+    width: 80%;
+    height: 150px;
+    object-fit: contain;
+    max-height: unset;
+    margin-top: 10px;
+}
+
+.productos .producto .contenedor_producto {
+    background-color: white;
+    width: 80%;
+    margin:auto;
+}
+
+.productos .producto .detalles {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.precio {
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.card-footer{
+    bottom:0;
+    width:100%;
+}

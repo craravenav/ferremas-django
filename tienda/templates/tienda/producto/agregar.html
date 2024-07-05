@@ -1,0 +1,45 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Agregar Producto
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Agregar Producto</li>
+</ol>
+{% endblock %}
+  
+{% block contenido %}   
+{% load crispy_forms_tags %}
+<div class="container-sm">
+    <h1 style="text-align: center;">Agregar Producto</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 mb-5 mt-5">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{producto_form | crispy}}
+                {{imagenes_form | crispy}}
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="reset" class="btn btn-lg btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Enviar</button>
+                </div>          
+            </form>
+        </div>
+    </div>
+    
+</div>
+{{ mensaje }}
+{% endblock %}
