@@ -1,0 +1,96 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Listado de Categorias
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Listado de Categorias</li>
+</ol>
+{% endblock %}
+
+{% block contenido %}   
+<div class="container">
+    <h1 style="text-align: center;">Listado de Categorias Registradas</h1>
+    <hr>
+    <div class="row m-5">
+        <a class="btn btn-primary" href="{% url 'agregar_categoria' %}">Agregar Categoria</a>
+    </div>
+
+    <table class="table mt-5">
+        {% if categorias %}
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in categorias %} 
+                <tr>
+                    <th scope="row"> {{ categoria.id }} </th>
+                    <td>{{ categoria.nombre | capfirst }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'modificar_categoria' categoria.id %}" class="btn btn-success" 
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-custom-class="tooltip-crud-editar"
+                                data-bs-title="Editar Categoria">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" onclick="eliminarCategoria({{ categoria.id }})" class="btn btn-danger" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-placement="top" 
+                                data-bs-custom-class="tooltip-crud-eliminar" 
+                                data-bs-title="Eliminar Categoria">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        {% endif %}
+      </table>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'tienda/js/listadoProductos.js' %}"></script>
+
+<script>
+    function eliminarCategoria(id){
+        Swal.fire({
+            "title": "¿Estas seguro?",
+            "text": "Esta acción no puede deshacerse",
+            "icon": "warning",
+            "showCancelButton": true,
+            "confirmButtonText": "Si, Eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if (result.isConfirmed){
+                window.location.href = "/eliminar-categoria/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock %}

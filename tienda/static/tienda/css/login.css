@@ -1,0 +1,13 @@
+body{
+    background-color: rgb(39, 39, 39);
+    background-image: url("../img/background2.png");
+    background-repeat: repeat;
+}
+
+.card-header{
+    background-color: #1a2530;
+}
+
+.card-registro{
+    min-width: 60%;
+}

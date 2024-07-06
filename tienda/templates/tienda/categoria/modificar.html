@@ -1,0 +1,44 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Modificar Categoria
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Modificar Categoria</li>
+</ol>
+{% endblock %}
+  
+{% block contenido %}   
+{% load crispy_forms_tags %}
+<div class="container-sm">
+    <h1 style="text-align: center;">Modificar Categoria</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 mb-5 mt-5">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <button href="{% url 'listar_categoria' %}" class="btn btn-lg btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Editar</button>
+                </div>          
+            </form>
+        </div>
+    </div>
+    
+</div>
+{{ mensaje }}
+{% endblock %}

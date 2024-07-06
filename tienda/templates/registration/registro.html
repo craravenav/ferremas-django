@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tienda/css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'tienda/css/login.css' %}">
+</head>
+<body>
+    {% load crispy_forms_tags %}
+    <div class="container"> 
+        <div class="row">
+            <div class="col-12 col-md-6 offset-3 scroll">
+                <div class="card position-absolute top-50 start-50 translate-middle card-registro">
+                    <div class="card-header">
+                        <img src="{% static 'tienda/img/ferremas_logo.svg' %}" alt="logo" width="100%" height="150">
+                    </div>
+                    <div class="card-body">
+                        <h2>Registro de Usuario</h2>
+                        <form action="" method ="post">
+
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        {{ form.username | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        {{ form.email | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        {{ form.rut | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.first_name | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.last_name | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.password1 | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.password2 | as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'index' %}" class="btn btn-link"><i class="bi bi-house-heart-fill"></i> Ir al Sitio</a>
+                                <a href="{% url 'login' %}" class="btn btn-link">¿Ya tienes una cuenta?</a>
+                                <input type="submit" value="Registrarse" class="btn btn-primary">
+                            </div> 
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -74,7 +74,7 @@ style="display:none;"
                                 data-bs-title="Editar Producto">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger" 
+                            <a href="#" onclick="eliminarProducto({{ producto.id }})" class="btn btn-danger" 
                                 data-bs-toggle="tooltip" 
                                 data-bs-placement="top" 
                                 data-bs-custom-class="tooltip-crud-eliminar" 
@@ -131,4 +131,23 @@ style="display:none;"
 
 {% block js %}
 <script src="{% static 'tienda/js/listadoProductos.js' %}"></script>
+
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title": "¿Estas seguro?",
+            "text": "Esta acción no puede deshacerse",
+            "icon": "warning",
+            "showCancelButton": true,
+            "confirmButtonText": "Si, Eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if (result.isConfirmed){
+                window.location.href = "/eliminar-producto/"+id+"/"
+            }
+        })
+    }
+</script>
 {% endblock %}

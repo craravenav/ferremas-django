@@ -46,7 +46,7 @@ class Empleado(models.Model):
 # USER CLIENTE 
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    direccion = models.TextField()
+    direccion = models.TextField(null=True,blank=True)
     rut = models.CharField(max_length=10, null=False, primary_key=True)
     
     def __str__(self):
