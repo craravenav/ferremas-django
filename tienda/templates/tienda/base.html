@@ -55,24 +55,36 @@
                                             <li><a class="dropdown-item" href="{% url 'pagos' %}">Pagos</a></li>
                                             {% endif %}
                                         </div>
-                                        {% if user|es_Vendedor or user.is_superuser %}
+                                        {% if user.is_staff %}
                                         <div class="col-md-6">
                                             <li><span class="dropdown-header">Productos</span></li>
+                                            {% if perms.tienda.view_producto %}
                                             <li><a class="dropdown-item" href="{% url 'listar_producto' %}">Ver Productos</a></li>
+                                            {% endif %}
+                                            {% if perms.tienda.add_producto %}
                                             <li><a class="dropdown-item" href="{% url 'agregar_producto' %}">Agregar Producto</a></li>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <li><hr class="dropdown-divider"></li>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <li><span class="dropdown-header">Categorías</span></li>
+                                            {% if perms.tienda.view_categoria %}
                                             <li><a class="dropdown-item" href="{% url 'listar_categoria' %}">Ver Categorías</a></li>
+                                            {% endif %}
+                                            {% if perms.tienda.add_categoria %}
                                             <li><a class="dropdown-item" href="{% url 'agregar_categoria' %}">Agregar Categoría</a></li>
+                                            {% endif %}
                                         </div>
                                         <div class="col-md-6">
                                             <li><span class="dropdown-header">Marcas</span></li>
+                                            {% if perms.tienda.view_marca %}
                                             <li><a class="dropdown-item" href="{% url 'listar_marca' %}">Ver Marcas</a></li>
+                                            {% endif %}
+                                            {% if perms.tienda.add_marca %}
                                             <li><a class="dropdown-item" href="{% url 'agregar_marca' %}">Agregar Marca</a></li>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     {% endif %}

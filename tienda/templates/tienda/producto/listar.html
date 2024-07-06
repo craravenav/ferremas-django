@@ -27,9 +27,11 @@ style="display:none;"
 <div class="container">
     <h1 style="text-align: center;">Listado de Productos</h1>
     <hr>
+    {% if perms.tienda.add_producto %}
     <div class="row m-5">
         <a class="btn btn-primary" href="{% url 'agregar_producto' %}">Agregar Producto</a>
     </div>
+    {% endif %}
 
     <table class="table mt-5">
         {% if productos %}
@@ -67,6 +69,7 @@ style="display:none;"
                                     data-bs-title="Ver Producto">
                                 </i>
                             </a>
+                            {% if perms.tienda.change_producto %}
                             <a href="{% url 'modificar_producto' producto.id %}" class="btn btn-success" 
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
@@ -74,6 +77,8 @@ style="display:none;"
                                 data-bs-title="Editar Producto">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
+                            {% endif %}
+                            {% if perms.tienda.delete_producto %}
                             <a href="#" onclick="eliminarProducto({{ producto.id }})" class="btn btn-danger" 
                                 data-bs-toggle="tooltip" 
                                 data-bs-placement="top" 
@@ -81,6 +86,7 @@ style="display:none;"
                                 data-bs-title="Eliminar Producto">
                                 <i class="bi bi-trash3"></i>
                             </a>
+                            {% endif %}
                         </div>
                         
                     </td>
