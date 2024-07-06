@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from .models import Producto, Categoria, ImagenProducto
-from .forms import ContactoForm, ProductoForm, ImagenProductoForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Producto, Categoria
+from .forms import ContactoForm, ProductoForm
 
 # Create your views here.
 def index(request):
@@ -48,31 +48,52 @@ def pagos(request):
 def agregar_producto(request):
     
     context = { 
-        'producto_form': ProductoForm(),
-        'imagenes_form': ImagenProductoForm()
+        'form': ProductoForm()
     }
 
     if request.method == 'POST':
-        producto_form = ProductoForm(request.POST)
-        imagen_form = ImagenProductoForm(request.POST, request.FILES)
+        producto_form = ProductoForm(request.POST,request.FILES)
         
-        if producto_form.is_valid() and imagen_form.is_valid():
-            producto = producto_form.save()  # Guardar el producto primero
-            imagen = imagen_form.save(commit=False)
-            imagen.producto = producto  # Asignar el producto a la imagen
-            imagen.save()  
-            
+        if producto_form.is_valid():
+            producto = producto_form.save() 
             context["mensaje"] = "Producto Agregado con exito!"
         else:
-            context["producto_form"] = producto_form
-            context["imagenes_form"] = imagen_form
+            context["form"] = producto_form
 
     return render (request, 'tienda/producto/agregar.html', context)
 
 def listar_producto(request):
+    productos = Producto.objects.all()
     context = { 
+        'productos': productos
     }
     return render (request, 'tienda/producto/listar.html', context)
+
+def modificar_producto(request, id):
+
+    producto = get_object_or_404(Producto, id=id)
+    
+    context = {
+        'form':ProductoForm(instance=producto)
+    }
+
+    if request.method == 'POST':
+        producto_form = ProductoForm(request.POST, request.FILES, instance=producto)
+        
+        if producto_form.is_valid():
+            producto = producto_form.save()  
+            return redirect(to="listar_producto")
+        else:
+            context["form"] = producto_form
+
+
+    return render(request, 'tienda/producto/modificar.html', context)
+
+def eliminar_producto(request, id):
+    producto = get_object_or_404(id=id)
+    producto.delete()
+    return redirect(to="listar_producto")
+
 
 # CRUD DE MARCA
 def agregar_marca(request):

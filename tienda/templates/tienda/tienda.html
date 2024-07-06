@@ -27,9 +27,9 @@
 {% for producto in productos %}
     <div class="card producto">
         <div class="d-flex flex-column h-100">
-            {% if producto.imagenes %}
+            {% if producto.imagen %}
             <div class="d-flex justify-content-center align-items-center">
-                <img src="{{ producto.imagenes.first.imagen.url }}" class="card-img-top producto-imagen" alt="...">
+                <img src="{{ producto.imagen.url }}" class="card-img-top producto-imagen" alt="...">
             </div>
             {% endif %}
             <div class="card-body detalles flex-grow-1">
@@ -54,6 +54,5 @@
 
 {% block js %}
 <script src="{% static 'tienda/js/tienda.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="{% static 'tienda/js/jqueryFerremas.js' %}"></script>
 {% endblock %}

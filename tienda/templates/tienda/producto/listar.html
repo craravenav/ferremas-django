@@ -1,0 +1,134 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Listado de Productos
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'tienda/css/tienda.css' %}">
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Listado de Productos</li>
+</ol>
+{% endblock %}
+
+{% block contenido %}   
+{% load humanize %}
+<div class="container">
+    <h1 style="text-align: center;">Listado de Productos</h1>
+    <hr>
+    <div class="row m-5">
+        <a class="btn btn-primary" href="{% url 'agregar_producto' %}">Agregar Producto</a>
+    </div>
+
+    <table class="table mt-5">
+        {% if productos %}
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %} 
+                <tr>
+                    <th scope="row"> {{ producto.id }} </th>
+                    <td>{{ producto.nombre | capfirst }}</td>
+                    <td>$ {{ producto.precio | intcomma }}</td>
+                    <td>{{ producto.marca.nombre | capfirst }}</td>
+                    <td>{{ producto.categoria.nombre | capfirst }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a type="button" class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#ModalProducto"
+                                data-producto-nombre="{{ producto.nombre | capfirst }}"
+                                data-producto-precio="$ {{ producto.precio | intcomma }}"
+                                data-producto-marca="{{ producto.marca.nombre }}"
+                                data-producto-imagen="{{ producto.imagen.url }}">
+                                <i class="bi bi-upc-scan"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    data-bs-custom-class="tooltip-crud-ver"
+                                    data-bs-title="Ver Producto">
+                                </i>
+                            </a>
+                            <a href="{% url 'modificar_producto' producto.id %}" class="btn btn-success" 
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-custom-class="tooltip-crud-editar"
+                                data-bs-title="Editar Producto">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-placement="top" 
+                                data-bs-custom-class="tooltip-crud-eliminar" 
+                                data-bs-title="Eliminar Producto">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        {% endif %}
+      </table>
+
+
+</div>
+
+<div class="modal fade" id="ModalProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vista Previa Producto en tienda</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card producto">
+                    <div class="d-flex flex-column h-100">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="" class="card-img-top producto-imagen" alt="...">
+                        </div>
+                        <div class="card-body detalles flex-grow-1">
+                            <h6 class="producto-marca"></h6>
+                            <h5 class="card-title producto-nombre"></h5>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <div class="p-1 precio producto-precio">
+                            </div>
+                            <div class="p-2">
+                                <button class="btn btn-primary btn-sm btnAgregarProducto" id="btnAgregarProducto" disabled>Agregar <i class="bi bi-cart-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{ mensaje }}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'tienda/js/listadoProductos.js' %}"></script>
+{% endblock %}

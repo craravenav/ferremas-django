@@ -23,14 +23,11 @@ class Producto(models.Model):
     descripcion = models.TextField()
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
+    imagen = models.ImageField(upload_to="productos", null=True, blank=True)
 
     def __str__(self):
         return self.nombre
     
-class ImagenProducto(models.Model):
-    imagen = models.ImageField(upload_to="productos", null=True)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="imagenes")
-
 # CLIENTE
 EMPLEADO_ROLES = [
     ('Contador', 'contador'),

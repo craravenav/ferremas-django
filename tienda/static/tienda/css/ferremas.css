@@ -220,3 +220,19 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+
+/* CSS DE LOS CRUD */
+.tooltip-crud-ver {
+    --bs-tooltip-bg: var(--ferremas-azul-color);
+    --bs-tooltip-color: white;
+}
+
+.tooltip-crud-editar {
+    --bs-tooltip-bg: #18bc9c;
+    --bs-tooltip-color: white;
+}
+
+.tooltip-crud-eliminar {
+    --bs-tooltip-bg: #e74c3c;
+    --bs-tooltip-color: white;
+}
