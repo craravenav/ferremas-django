@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Producto, Categoria, Marca
-from .forms import ContactoForm, ProductoForm, CustomUserCreationForm, MarcaForm, CategoriaForm
+from .models import Producto, Categoria, Marca, Pedido
+from .forms import ContactoForm, ProductoForm, CustomUserCreationForm, MarcaForm, CategoriaForm, PedidoForm, DetallePedidoFormSet
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
@@ -238,3 +238,37 @@ def eliminar_categoria(request, id):
     categoria.delete()
     messages.success(request, "Categoria Eliminada Correctamente")
     return redirect(to="listar_categoria")
+
+
+
+def agregar_pedido(request):
+    if request.method == 'POST':
+        pedido_form = PedidoForm(request.POST)
+        detalle_pedido_formset = DetallePedidoFormSet(request.POST)
+        if pedido_form.is_valid() and detalle_pedido_formset.is_valid():
+            pedido = pedido_form.save()
+            detalle_pedidos = detalle_pedido_formset.save(commit=False)
+            for detalle in detalle_pedidos:
+                detalle.pedido = pedido
+                detalle.save()
+            messages.success(request, "Pedido Agregado Correctamente")
+            return redirect(to="listar_pedido")
+    else:
+        pedido_form = PedidoForm()
+        detalle_pedido_formset = DetallePedidoFormSet()
+
+    return render(request, 'tienda/pedido/agregar.html', {
+        'pedido_form': pedido_form,
+        'detalle_pedido_formset': detalle_pedido_formset,
+    })
+
+def listar_pedido(request):
+    pedidos = Pedido.objects.all()
+    return render(request, 'tienda/pedido/listar.html', {'pedidos': pedidos})
+
+def eliminar_pedido(request, pedido_id):
+    if request.method == 'POST':
+        pedido = get_object_or_404(Pedido, id=pedido_id)
+        pedido.delete()
+        messages.success(request, "Pedido Eliminado Correctamente")
+    return redirect(to="listar_pedido")

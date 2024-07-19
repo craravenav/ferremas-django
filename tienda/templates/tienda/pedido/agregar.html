@@ -1,0 +1,68 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Agregar Pedido
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Agregar Pedido</li>
+</ol>
+{% endblock %}
+  
+{% block contenido %}   
+{% load crispy_forms_tags %}
+<div class="container-sm">
+    <h1 style="text-align: center;">Agregar Pedido</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 mb-5 mt-5">
+            <form method="post">
+                {% csrf_token %}
+                {{ pedido_form | crispy }}
+                <div id="detalle-pedido-formset">
+                    {{ detalle_pedido_formset.management_form }}
+                        {% for form in detalle_pedido_formset %}
+                        <div class="detalle-pedido-form">
+                            {{ form | crispy }}
+                        </div>
+                        {% endfor %}
+                </div>
+                <button type="button" class="btn btn-lg btn-danger" id="add-detail">Agregar Otro Producto</button>
+                <button type="submit" class="btn btn-lg btn-primary">Guardar</button>
+            </form>
+
+            <div style="display:none;" id="empty-form">
+                <div class="detalle-pedido-form">
+                    {{ detalle_pedido_formset.empty_form | crispy }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function() {
+        let formIndex = {{ detalle_pedido_formset.total_form_count }};
+        $('#add-detail').click(function() {
+            let newForm = $('#empty-form .detalle-pedido-form').clone(true);
+            newForm.html(newForm.html().replace(/__prefix__/g, formIndex));
+            newForm.appendTo('#detalle-pedido-formset');
+            formIndex++;
+            $('#id_detallepedido_set-TOTAL_FORMS').val(formIndex);
+        });
+    });
+</script>
+{% endblock%}

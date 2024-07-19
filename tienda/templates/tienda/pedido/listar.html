@@ -1,0 +1,110 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+- Listado de Pedidos
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'tienda/css/tienda.css' %}">
+{% endblock %}
+
+{% block subheader %}
+style="display:none;"  
+{% endblock %}
+
+{% block breadcumbs %}
+<!-- Breadcumbs del Sitio-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li> 
+    <li class="breadcrumb-item active">Listado de Pedidos</li>
+</ol>
+{% endblock %}
+
+{% block contenido %}   
+{% load humanize %}
+<div class="container">
+    <h1 style="text-align: center;">Listado de Pedidos</h1>
+    <hr>
+    {% if perms.tienda.add_pedido %}
+    <div class="row m-5">
+        <a class="btn btn-primary" href="{% url 'agregar_pedido' %}">Agregar Pedido</a>
+    </div>
+    {% endif %}
+
+    <table class="table mt-5">
+        {% if pedidos %}
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Vendedor</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ pedido.fecha }}</td>
+                    <td>{{ pedido.total }}</td>
+                    <td>{{ pedido.get_estado_display }}</td>
+                    <td>{{ pedido.vendedor }}</td>
+                    <td>{{ pedido.cliente }}</td>
+                    <td>
+                        <!-- Botón para abrir el modal -->
+                        <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#detalleModal{{ pedido.id }}">
+                            Ver Detalle
+                        </a>
+
+                        <!-- Botón de eliminación -->
+                        <form action="{% url 'eliminar_pedido' pedido.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-trash" title="Eliminar">
+                                <!-- Icono de trash can de Bootstrap -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M6.5 0a.5.5 0 0 1 .5.5V1h3V.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V1h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5V1a.5.5 0 0 1 .5-.5h1V.5a.5.5 0 0 1 .5-.5h2zM3.5 1V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V1h3V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V1h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5V1a.5.5 0 0 1 .5-.5h1z"/>
+                                    <path d="M5.5 6a.5.5 0 0 1 .5.5V12a.5.5 0 0 1-1 0V6.5a.5.5 0 0 1 .5-.5zM8 6a.5.5 0 0 1 .5.5V12a.5.5 0 0 1-1 0V6.5a.5.5 0 0 1 .5-.5zM10.5 6a.5.5 0 0 1 .5.5V12a.5.5 0 0 1-1 0V6.5a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        {% endif %}
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detalleModal{{ pedido.id }}" tabindex="-1" aria-labelledby="detalleModalLabel{{ pedido.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel{{ pedido.id }}">Detalle del Pedido #{{ pedido.id }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Productos:</h5>
+                <ul>
+                    {% for detalle in pedido.detallepedido_set.all %}
+                    <li>{{ detalle.producto }} - Cantidad: {{ detalle.cantidad }} - Subtotal: {{ detalle.subtotal }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'tienda/js/listadoPedidos2.js' %}"></script>
+{% endblock %}

@@ -69,7 +69,7 @@ class Pedido(models.Model):
 
 # DETALLE PEDIDO
 class DetallePedido(models.Model):
-    pedido = models.ForeignKey(Pedido, on_delete=models.PROTECT)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
     subtotal = models.IntegerField()

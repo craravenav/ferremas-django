@@ -49,7 +49,8 @@
                                         <div class="col-md-6">
                                             <li><span class="dropdown-header">Operaciones</span></li>
                                             {% if user|es_Vendedor or user.is_superuser %}
-                                            <li><a class="dropdown-item" href="{% url 'pedidos' %}">Pedidos</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'listar_pedido' %}">Ver Pedidos</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'agregar_pedido' %}">Agregar Pedido</a></li>
                                             {% endif %}
                                             {% if user|es_Contador or user.is_superuser %}
                                             <li><a class="dropdown-item" href="{% url 'pagos' %}">Pagos</a></li>

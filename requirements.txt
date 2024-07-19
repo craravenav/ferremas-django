@@ -6,3 +6,5 @@ django-admin-interface
 #Libreria utilizada para integrar Boostrap al Forms de Django
 django-crispy-Forms
 crispy-bootstrap5
+#Algoritmo Hasher Argon2
+argon2-cffi

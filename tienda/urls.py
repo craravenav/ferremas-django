@@ -22,4 +22,7 @@ urlpatterns = [
     path('accounts/logout/', views.logout_view, name='logout'),
     path('registro', views.registro, name ='registro'),
 
+    path('agregar-pedido', views.agregar_pedido, name='agregar_pedido'),
+    path('listar-pedido', views.listar_pedido, name='listar_pedido'),
+    path('eliminar_pedido/<pedido_id>/', views.eliminar_pedido, name='eliminar_pedido'),
 ]
